@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <div>
       <div className=" h-1/5   w-fit">
-        <img className="opacity-90 h-80 object-cover   w-screen " src="https://assets.nflxext.com/ffe/siteui/vlv3/154a9550-ce07-4e28-819c-63185dd849f8/web/PK-en-20250106-TRIFECTA-perspective_ac4f9910-e162-4463-9f26-4f7743230f6b_large.jpg" alt="" />
+        <img className="opacity-90 h-80 object-cover   w-screen " src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
         <div className="absolute top-60 left-96 max-sm:left-20">
           <form action="#" onSubmit={(e) => hnadleSubmit(e)}>
             <div className="search border-2 border-red-900 rounded-full bg-gray-900 opacity-90 relative text-gray-600 pr-4 max-sm:pr-2  focus-within:text-gray-400  ">
