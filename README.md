@@ -21,7 +21,7 @@ A movie streaming app built with Next.js, React, and Tailwind CSS.
 
 ## Getting Started
 
-1. Clone the repository: `git clone https://github.com/your-username/movienest.git`
+1. Clone the repository: `git clone https://github.com/sajidali-sk404/Movies-Management-App.git`
 2. Install dependencies: `npm install` or `yarn install`
 3. Start the development server: `npm run dev` or `yarn dev`
 4. Open your browser and navigate to `http://localhost:3000`
