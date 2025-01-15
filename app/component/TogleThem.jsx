@@ -26,7 +26,7 @@ export default function TogleThem() {
 
   return (
     <div>
-        <button className='absolute text-white  top-4 p-2 right-16 border-2  rounded-full max-lg:right-10  max-sm:right-2 max-sm:top-3'
+        <button className='text-white p-2 border-2  rounded-full'
        onClick={() => handleDarkMode()} >
                 {
 

@@ -16,9 +16,9 @@ export default async function MovieDetails({ params }) {
 
   return (
     <>
-      <div className='flex container max-sm:flex-col w-full m-10 gap-4 border-2 p-4  '>
-        <img className='border-4 w-full'  src={movieDetails.artworkUrl100} alt="" />
-        <div className='flex flex-wrap flex-col max-sm:'>
+      <div className='flex container max-sm:flex-col w-full  overflow-hidden mt-10 gap-4 border-2 p-6 max-md:p-2  '>
+        <img className='border-4 w-full '  src={movieDetails.artworkUrl100} alt="" />
+        <div className='flex  flex-col max-sm:'>
           
           <h1 className='font-bold text-base'>{movieDetails.trackName}</h1>
           <p><span className='font-bold'>Country:</span>{movieDetails.country}</p>
@@ -38,8 +38,8 @@ export default async function MovieDetails({ params }) {
       {/* Similar Movies */}
       <h2 className='mx-10 text-2xl text-gray-700 dark:text-gray-100'>Similar Movies</h2>
       <div className='flex flex-wrap gap-5 my-4 mx-8'>
-        {similarMovies.map(movie => {
-          return <SimilarMoviesCard key={movie.primaryGenreName} movie={movie}/>
+        {Array.isArray(similarMovies) && similarMovies.map(movie => {
+          return <SimilarMoviesCard key={movie.trackId} movie={movie}/>
         })}
 
       </div>

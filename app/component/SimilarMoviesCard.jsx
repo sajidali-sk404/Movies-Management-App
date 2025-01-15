@@ -4,12 +4,12 @@ export default function SimilarMoviesCard({ movie }) {
 
     return (
     
-            <div key={movie.primaryGenreName}>
+            <li key={movie.trackId}>
                 <h2>{movie.primaryGenreName}</h2>
                 <img src={movie.artworkUrl100} alt="img" />
                 
                 
-            </div>
+            </li>
 
 
        
