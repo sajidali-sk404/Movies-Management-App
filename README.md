@@ -9,6 +9,7 @@ A movie streaming app built with Next.js, React, and Tailwind CSS.
 * View movie details, including title, genre, price, and description
 * Add movies to a watchlist for later viewing
 * Play movie trailers
+* Watch Insteresting Movies
 * Similar movies suggestions
 
 ## Technologies Used
