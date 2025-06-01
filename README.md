@@ -12,7 +12,7 @@ A movie streaming app built with Next.js, React, and Tailwind CSS.
 * Watch Insteresting Movies
 * Similar movies suggestions
 
-## Technologies Used
+## Technologies Used In App
 
 * Next.js for server-side rendering and routing
 * React for building reusable UI components
