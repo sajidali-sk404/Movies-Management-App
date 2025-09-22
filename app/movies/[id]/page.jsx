@@ -41,7 +41,6 @@ export default async function MovieDetails({ params }) {
         {Array.isArray(similarMovies) && similarMovies.map(movie => {
           return <SimilarMoviesCard key={movie.trackId} movie={movie}/>
         })}
-
       </div>
     </>
   )

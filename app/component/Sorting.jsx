@@ -1,7 +1,6 @@
 'use client'
 import React from 'react'
 import { useState, useEffect } from 'react';
-import MoviesCard from './MoviesCard';
 export default function Sorting({movies}) {
     const [filteredMovies, setfilteredMovies] = useState(movies);
     

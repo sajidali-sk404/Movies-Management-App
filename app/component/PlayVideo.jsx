@@ -1,64 +1,88 @@
-'use client'
-import React, { useEffect } from 'react'
-import { useState } from 'react';
-import ReactPlayer from 'react-player';
-import Modal from 'react-modal';
+"use client";
+import React, { useEffect, useState } from "react";
+import ReactPlayer from "react-player";
+import Modal from "react-modal";
 import { IoMdClose } from "react-icons/io";
 
-export default function PlayVideo({movieDetails}) {
-    const [Selectmovie , setSelectmovie] = useState(null);
-    const [modalIsOpen, setmodalIsOpen] = useState(false);
-    
+export default function PlayVideo({ movieDetails }) {
+  const [selectMovie, setSelectMovie] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const handleWacth = (movieDetails) => {
-    setSelectmovie(movieDetails)
-    setmodalIsOpen(true)
-  }
+  const handleWatch = (movieDetails) => {
+    setSelectMovie(movieDetails);
+    setModalIsOpen(true);
+  };
 
   const modalClose = () => {
-    setmodalIsOpen(false)
-    setSelectmovie(null)
-  }
+    setModalIsOpen(false);
+    setSelectMovie(null);
+  };
 
-    useEffect(() => {
-        Modal.setAppElement('body');
-    }, [])
-
+  useEffect(() => {
+    Modal.setAppElement("body");
+  }, []);
 
   return (
     <div>
-        <button className='border-2 p-2 px-10 font-serif font-bold my-2 bg-[#fd7e14] hover:bg-[#e8590c] ' onClick={() => handleWacth(movieDetails)}>Wacth Trailer</button>
-        <Modal
-         isOpen={modalIsOpen}
-         onRequestClose={modalClose}
-         contentLabel="Video Modal"
-         style={{
-            overlay: {
-                backgroundColor: " hidden ",
-            },
-            content: {
-                top: '50%',
-                left: '50%',
-                right: 'auto',
-                bottom: 'auto',
-                marginRight: '-50%',
-                transform: 'translate(-50%, -50%)',
-              },
+      {/* Watch Trailer Button */}
+      <button
+        onClick={() => handleWatch(movieDetails)}
+        className="border-2 px-6 py-2 font-semibold rounded-lg my-2 bg-orange-500 hover:bg-orange-600 text-white shadow-md transition-all"
+      >
+        🎥 Watch Trailer
+      </button>
+
+      {/* Modal */}
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={modalClose}
+        contentLabel="Video Modal"
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0,0,0,0.8)",
+            zIndex: 50,
+          },
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            background: "transparent",
+            border: "none",
+            padding: 0,
+            overflow: "hidden",
+          },
         }}
-        >
-        {Selectmovie &&
-        <div>
-            <div><button className='absolute right-0 top-0  text-2xl' onClick={modalClose}><IoMdClose /></button></div>
-            <p className='absolute top-10 left-10 text-white'>{Selectmovie.trackName}</p>
-            <ReactPlayer url={Selectmovie.previewUrl} 
-            width='70vw'
-            height='80vh'
-            controls={true}
-            className='bg-gray-800 overflow-hidden '
-            />
-        </div>
-      }
+      >
+        {selectMovie && (
+          <div className="relative flex flex-col items-center">
+            {/* Close Button */}
+            <button
+              onClick={modalClose}
+              className="absolute top-2 z-30 right-2 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white text-2xl"
+            >
+              <IoMdClose />
+            </button>
+
+            {/* Title */}
+            <p className="absolute top-4 left-4 text-white font-semibold text-lg drop-shadow-lg">
+              {selectMovie.trackName}
+            </p>
+
+            {/* Video Player */}
+            <div className="w-[90vw] max-w-4xl aspect-video rounded-lg overflow-hidden bg-black">
+              <ReactPlayer
+                url={selectMovie.previewUrl}
+                width="100%"
+                height="100%"
+                controls
+              />
+            </div>
+          </div>
+        )}
       </Modal>
     </div>
-  )
+  );
 }

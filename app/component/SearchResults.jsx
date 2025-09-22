@@ -1,57 +1,62 @@
-"use client"
-import React, { useEffect, useState } from 'react'
-import MoviesCard from './MoviesCard';
+"use client";
+import React, { useMemo, useState } from "react";
+import MoviesCard from "./MoviesCard";
 
-export default function SearchResults({ searchText, movies }) {
-    const [filteredMovies, setfilteredMovies] = useState(movies);
+export default function SearchResults({ searchText, movies = [] }) {
+  const [sortType, setSortType] = useState("");
 
-    useEffect(() => {
-        setfilteredMovies(movies)
-    }, [movies]);
+  // Sort movies dynamically using useMemo for performance
+  const filteredMovies = useMemo(() => {
+    if (!sortType) return movies;
 
-    const filterMovie = (filter) => {
-        let sortedMovie = [];
-        switch (filter) {
-            case 'Low-Price':
-                // Sort movies by price in ascending order (lowest price first)
-                sortedMovie = [...movies].sort((a, b) => a.trackPrice - b.trackPrice);
-                break;
-            
-            case 'High-Price':
-                // Sort movies by price in descending order (highest price first)
-                sortedMovie = [...movies].sort((a, b) => b.trackPrice - a.trackPrice);
-                break;
-                
-                case 'Release-Date':
-                    // Sort movies by Release Date
-                    sortedMovie = [...movies].sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
-                    break;
-    
-            default:
-                break;
-            }
-            setfilteredMovies(sortedMovie);
+    switch (sortType) {
+      case "Low-Price":
+        return [...movies].sort((a, b) => a.trackPrice - b.trackPrice);
+      case "High-Price":
+        return [...movies].sort((a, b) => b.trackPrice - a.trackPrice);
+      case "Release-Date":
+        return [...movies].sort(
+          (a, b) => new Date(b.releaseDate) - new Date(a.releaseDate)
+        );
+      default:
+        return movies;
     }
+  }, [movies, sortType]);
 
-    return (
-        <>
-            <div className='flex justify-around p-4  dark:text-white '>
-                <h1 className='text-2xl '>Search Result    &quot;{searchText}&quot;</h1>
+  return (
+    <>
+      {/* Header + Sort Control */}
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 px-6 py-4 dark:text-white">
+        <h1 className="text-2xl font-semibold">
+          Search Results for <span className="text-orange-500">“{searchText}”</span>
+        </h1>
 
-                <select onChange={e => filterMovie(e.target.value) } className='text-lg p-2 border-4'>
-                    <option>Sort By</option>
-                    <option value="Low-Price">Low Price</option>
-                    <option value="High-Price">High Price</option>
-                    <option value="Release-Date">Release Date</option>
-                </select>
-            </div>
-            <div className=' '>
-            <div className='flex flex-wrap gap-5 mx-16'>
-                {Array.isArray(filteredMovies) && filteredMovies?.map((movie) => {
-                    return <MoviesCard key={movie.trackId} movie={movie} />;
-                })}
-            </div>
-            </div>
-        </>
-    )
+        <select
+          value={sortType}
+          onChange={(e) => setSortType(e.target.value)}
+          className="text-base px-4 py-2 border rounded-lg shadow-sm bg-white dark:bg-gray-800 dark:border-gray-600"
+        >
+          <option value="">Sort By</option>
+          <option value="Low-Price">Low Price</option>
+          <option value="High-Price">High Price</option>
+          <option value="Release-Date">Release Date</option>
+        </select>
+      </div>
+
+      {/* Results Grid */}
+      <div className="px-6 pb-10">
+        {filteredMovies?.length > 0 ? (
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {filteredMovies.map((movie) => (
+              <MoviesCard key={movie.trackId} movie={movie} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center text-gray-600 dark:text-gray-300 py-16 text-lg">
+            No movies found for <span className="font-semibold">“{searchText}”</span>.
+          </div>
+        )}
+      </div>
+    </>
+  );
 }
