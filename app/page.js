@@ -1,38 +1,60 @@
-'use client'
+"use client";
 import PaginationControl from "./component/PaginationControl";
 import { FaSearch } from "react-icons/fa";
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-
-
-
-
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Home() {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const router = useRouter();
 
-  const hnadleSubmit = (e) => {
-   e.preventDefault();
-   if(search){
-     router.push(`/movies/search?query=${search}`)
-   }
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (search.trim()) {
+      router.push(`/movies/search?query=${encodeURIComponent(search.trim())}`);
+    }
+  };
 
   return (
     <div>
-      <div className=" h-1/5   w-fit">
-        <img className="opacity-90 h-80 object-cover   w-screen " src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
-        <div className="absolute top-52 left-96 max-sm:left-6">
-          <form action="#" onSubmit={(e) => hnadleSubmit(e)}>
-            <div className="search border-2 border-red-900 rounded-full bg-gray-900 opacity-90 relative text-gray-600 pr-4 max-sm:pr-2  focus-within:text-gray-400  ">
-              <input className='px-6 max-lg:px-4 max-md:px-1 py-2   bg-gray-900 rounded-full rounded-r-none' type="search" value={search} placeholder='Search here' onChange={(e) => setSearch(e.target.value)} />
-              <button className='pl-2' type="submit"><FaSearch /></button>
-            </div>
+      {/* Hero Section */}
+      <div className="relative w-full h-[22rem] sm:h-[26rem] lg:h-[32rem]">
+        <img
+          src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3"
+          alt="Movies background"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/50" />
+
+        {/* Centered Search Form */}
+        <div className="relative z-10 flex items-center justify-center h-full">
+          <form
+            onSubmit={handleSubmit}
+            className="flex w-[90%] sm:w-[70%] md:w-[50%] max-w-xl"
+          >
+            <input
+              type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search for movies..."
+              aria-label="Search for movies"
+              className="flex-1 px-4 sm:px-6 py-3 rounded-l-full bg-gray-900/80 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            />
+            <button
+              type="submit"
+              className="px-5 sm:px-6 py-3 rounded-r-full bg-orange-600 hover:bg-orange-700 text-white flex items-center justify-center transition-colors"
+            >
+              <FaSearch />
+            </button>
           </form>
         </div>
       </div>
-      <PaginationControl />
+
+      {/* Pagination Section */}
+      <div className="mt-8">
+        <PaginationControl />
+      </div>
     </div>
   );
 }

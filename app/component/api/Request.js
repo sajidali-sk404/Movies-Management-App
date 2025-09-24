@@ -38,10 +38,23 @@ export async function SearchMovies(search) {
 }
 
 export async function GetSimilarMovies(movieTitle) {
-    const data = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(movieTitle)}&country=au&media=movie&all`);
-    const similarMovies = await data.json();
-    return similarMovies.results[0];
+  try {
+    const res = await fetch(
+      `https://itunes.apple.com/search?term=${encodeURIComponent(movieTitle)}&country=au&media=movie&limit=10`
+    );
+    const data = await res.json();
+
+    if (data.results && data.results.length > 0) {
+      return data.results;  // ✅ return array of movies
+    } else {
+      return [];            // safe fallback
+    }
+  } catch (error) {
+    console.error("Error fetching similar movies:", error);
+    return [];
+  }
 }
+
 
 
 export async function PaginationMovies(page = 1, limit = 10) {

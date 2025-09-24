@@ -8,8 +8,10 @@ import SimilarMoviesCard from '@/app/component/SimilarMoviesCard';
 
 
 export default async function MovieDetails({ params }) {
-  const movieDetails = await GetMovieDetails(params.id);
+   const { id } = await params;
+  const movieDetails = await GetMovieDetails(id);
   const similarMovies = await GetSimilarMovies(params.movieTitle);
+  console.log(similarMovies)
   
   
 
@@ -41,6 +43,7 @@ export default async function MovieDetails({ params }) {
         {Array.isArray(similarMovies) && similarMovies.map(movie => {
           return <SimilarMoviesCard key={movie.trackId} movie={movie}/>
         })}
+
       </div>
     </>
   )
